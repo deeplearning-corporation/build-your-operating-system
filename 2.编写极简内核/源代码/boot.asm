@@ -1,8 +1,6 @@
 ; boot.asm - 引导扇区代码
-; 确保有 extern kernel_main 声明
-
 [BITS 16]
-extern kernel_main
+extern _kernel_main
 global _start
 
 section .text
@@ -26,7 +24,7 @@ _start:
     call enable_protected_mode
     
     ; 跳转到内核
-    jmp 0x08:kernel_main
+    jmp 0x08:_kernel_main
 
 print_string:
     mov ah, 0x0E
@@ -84,6 +82,5 @@ gdt_desc:
 message:
     db "Hello OS world from bootloader!", 13, 10, 0
 
-; 填充到512字节
 times 510 - ($ - $$) db 0
 dw 0xAA55
