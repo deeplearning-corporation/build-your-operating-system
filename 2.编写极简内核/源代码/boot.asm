@@ -2,6 +2,7 @@
 ; 汇编: nasm -f elf32 boot.asm -o boot.o
 
 [BITS 16]           ; 16位实模式
+extern kernel_main  ; 声明C函数为外部符号
 global _start       ; 导出符号
 
 section .text
